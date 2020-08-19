@@ -1,3 +1,13 @@
-// Use d3.json() to fetch data from JSON file
+// Use D3 JSON to fetch data from JSON file
 // Incoming data is internally referred to as incomingData
-d3.json("data/samples.json").then 
+d3.json("data/samples.json").then((incomingData) => {
+    function filterMicrobes(microbe) {
+        return microbe.otu_ids
+    };
+
+    var trace = {
+        X: microbe.sample_values,
+        y: microbe.otu_ids,
+        type: "bar"
+    };
+});
