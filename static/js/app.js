@@ -15,9 +15,10 @@ function buildMetadata(sample) {
         panel.append("h6").text(`${key}: ${value}`);
     });
 
+    // Slice and reverse will need to be used to get the 10 top values
         var barData = {
-            x: microbe.sample_values.slice(0, 10).reverse(),
-            y: microbe.otu_ids,
+            x: sample_values.slice(0, 10).reverse(),
+            y: otu_ids.slice(0, 10).reverse(),
             text: otu_labels.slice(0, 10).reverse(),
             type: "bar",
             orientation: "h"
