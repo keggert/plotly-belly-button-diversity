@@ -1,10 +1,13 @@
-// Use D3 JSON to fetch data from JSON file
-// Incoming data is internally referred to as incomingData
 function buildMetadata(sample) {
+    // Use D3 JSON to fetch data from JSON file
     d3.json("./data/samples.json").then((data) => {
         console.log(data);
+    var metadata = data.metadata;
+        console.log(metadata);
     // Use D3 to select the panel with an id of sample-metadata
     var panel = d3.select("#sample-metadata");
+    // Using html to clear any existing metadata
+    panel.html("")
 
         var barData = {
             x: microbe.sample_values.slice(0, 10).reverse(),
