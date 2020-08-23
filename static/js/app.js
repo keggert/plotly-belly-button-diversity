@@ -4,14 +4,19 @@
 d3.json("./data/samples.json").then((data) => {
     console.log(data);
 
-    // function filterMicrobes(microbe) {
-    //     return microbe.otu_ids
-    // };
 
-    // var trace = {
-    //     X: microbe.sample_values,
-    //     y: microbe.otu_ids,
-    //     type: "bar",
-    //     orientation: "h"
-    // };
+    var barData = {
+        x: microbe.sample_values.slice(0, 10).reverse(),
+        y: microbe.otu_ids,
+        text: otu_labels.slice(0, 10).reverse(),
+        type: "bar",
+        orientation: "h"
+    }
+
+    var barLayout = {
+        title: "Top 10 Bacteria Cultures",
+    }
+
+
+    Plotly.newPlot("bar", barData, barLayout)
 });
