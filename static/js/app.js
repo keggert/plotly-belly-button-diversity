@@ -15,6 +15,7 @@ function buildMetadata(sample) {
         panel.append("h6").text(`${key}: ${value}`);
     });
 
+    // Bar chart
     // Slice and reverse will need to be used to get the 10 top values
         var barData = {
             x: sample_values.slice(0, 10).reverse(),
@@ -34,10 +35,15 @@ function buildMetadata(sample) {
 
 function init () {
     // Reference dropdown select element
-    var dropdownMenu = d3.select("#selDataset");
+    var selector = d3.select("#selDataset");
     // Use the list of samples names to populate the different select options
-    d3.json("./data/samples.json").then((data) => {
-    
+    d3.json("./data/samples.json").then((sampleName) => {
+        sampleName.forEach((sample) => {
+            selector
+                .append("option")
+                .text(sample)
+                .property("value", sample);
+        })
     });
 
 }
