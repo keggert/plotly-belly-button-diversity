@@ -45,6 +45,19 @@ function buildCharts(sample) {
     Plotly.newPlot("bar", barData, barLayout)
 });
 
+    // Bubble Chart
+        var bubbleData = {
+            x: otu_ids,
+            y: sample_values,
+            text: otu_labels,
+            mode: markers,
+            marker: {
+                size: sample_values,
+                color: otu_ids,
+                colorscale: "Earth"
+            }
+        }
+
 function init () {
     // Reference dropdown select element
     var dropdown = d3.select("#selDataset");
