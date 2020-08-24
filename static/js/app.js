@@ -11,7 +11,6 @@ function buildMetadata(sample) {
         var panel = d3.select("#sample-metadata");
     // Using html to clear any existing metadata
         panel.html("")
-
     // Use `Object.entries` to add each key and value pair to the panel
     // Hint: Inside the loop, you will need to use d3 to append new tags for each key-value in the metadata.
         Object.entries(data).forEach(([key, value]) => {
@@ -19,7 +18,7 @@ function buildMetadata(sample) {
         });
 
 function buildCharts(sample) {
-    d3.json("samples.json").then((data) => {
+    d3.json("./data/samples.json").then((data) => {
         var samples = data.samples;
         var resultsArray = samples.filter(sampleObj => sampleObj.id == sample);
         var result = resultsArray[0];
@@ -27,11 +26,12 @@ function buildCharts(sample) {
         var otu_ids = result.otu_ids;
         var otu_labels = result.otu_labels;
         var sample_values = result.sample_values;
+
     // Bar chart
     // Slice and reverse will need to be used to get the 10 top values
         var barData = {
             x: sample_values.slice(0, 10).reverse(),
-            y: otu_ids.slice(0, 10).reverse(),
+            y: otu_ids.slice(0, 10).map(otuID => `OTU ${otuID}`).reverse(),
             text: otu_labels.slice(0, 10).reverse(),
             type: "bar",
             orientation: "h"
@@ -47,7 +47,7 @@ function buildCharts(sample) {
 
 function init () {
     // Reference dropdown select element
-    var selector = d3.select("#selDataset");
+    var dropdown = d3.select("#selDataset");
     // Use the list of samples names to populate the different select options
     d3.json("./data/samples.json").then((sampleName) => {
         sampleName.forEach((sample) => {
