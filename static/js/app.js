@@ -2,19 +2,31 @@ function buildMetadata(sample) {
     // Use D3 JSON to fetch data from JSON file
     d3.json("./data/samples.json").then((data) => {
         console.log(data);
-    var metadata = data.metadata;
-        console.log(metadata);
+        var metadata = data.metadata;
+            console.log(metadata);
+    // Filter the data for the object with the desired sample number
+        var resultArray = metadata.filter(sampleObj => sampleObj.id == sample);
+        var result = resultArray[0];
     // Use D3 to select the panel with an id of sample-metadata
-    var panel = d3.select("#sample-metadata");
+        var panel = d3.select("#sample-metadata");
     // Using html to clear any existing metadata
-    panel.html("")
+        panel.html("")
 
     // Use `Object.entries` to add each key and value pair to the panel
     // Hint: Inside the loop, you will need to use d3 to append new tags for each key-value in the metadata.
-    Object.entries(data).forEach(([key, value]) => {
-        panel.append("h6").text(`${key}: ${value}`);
-    });
+        Object.entries(data).forEach(([key, value]) => {
+            panel.append("h6").text(`${key}: ${value}`);
+        });
 
+function buildCharts(sample) {
+    d3.json("samples.json").then((data) => {
+        var samples = data.samples;
+        var resultArray = samples.filter(sampleObj => sampleObj.id == sample);
+        var result = resultArray[0];
+          
+        var otu_ids = result.otu_ids;
+        var otu_labels = result.otu_labels;
+        var sample_values = result.sample_values;
     // Bar chart
     // Slice and reverse will need to be used to get the 10 top values
         var barData = {
