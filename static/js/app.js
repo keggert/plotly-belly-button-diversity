@@ -16,7 +16,12 @@ function buildMetadata(sample) {
         Object.entries(data).forEach(([key, value]) => {
             panel.append("h6").text(`${key}: ${value}`);
         });
-
+        
+    // BONUS: Build the Gauge Chart
+    buildGauge(result.wfreq);
+    });
+}
+    
 function buildCharts(sample) {
     d3.json("./data/samples.json").then((data) => {
         var samples = data.samples;
@@ -57,6 +62,7 @@ function buildCharts(sample) {
                 colorscale: "Earth"
             }
         }
+        Plotly.newPlot("bubble", bubbleData, bubbleLayout)
 
 function init () {
     // Reference dropdown select element
