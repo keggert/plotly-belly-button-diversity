@@ -46,6 +46,11 @@ function init () {
         })
     });
 
+    // Use first sample from list to build our initial plots
+    const firstSample = sampleName[0];
+    buildCharts(firstSample);
+    buildMetadata(firstSample);
+
 }
 
 function changeOptions(newSample) {
