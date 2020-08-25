@@ -34,24 +34,25 @@ function buildCharts(sample) {
 
     // Bar chart
     // Slice and reverse will need to be used to get the 10 top values
-        var barData = {
+        var barData = [{
             x: sample_values.slice(0, 10).reverse(),
             y: otu_ids.slice(0, 10).map(otuID => `OTU ${otuID}`).reverse(),
             text: otu_labels.slice(0, 10).reverse(),
             type: "bar",
             orientation: "h"
-        }
+        }];
 
         var barLayout = {
             title: "Top 10 Bacteria Cultures",
-        }
+        };
 
 
     Plotly.newPlot("bar", barData, barLayout)
-});
+    });
+}
 
     // Bubble Chart
-        var bubbleData = {
+        var bubbleData = [{
             x: otu_ids,
             y: sample_values,
             text: otu_labels,
@@ -61,7 +62,7 @@ function buildCharts(sample) {
                 color: otu_ids,
                 colorscale: "Earth"
             }
-        }
+        }];
         Plotly.newPlot("bubble", bubbleData, bubbleLayout)
 
 function init () {
@@ -78,7 +79,7 @@ function init () {
     });
 
     // Use first sample from list to build our initial plots
-    const firstSample = sampleName[0];
+    var firstSample = sampleName[0];
     buildCharts(firstSample);
     buildMetadata(firstSample);
 
