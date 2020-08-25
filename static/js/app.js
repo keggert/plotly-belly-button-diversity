@@ -13,7 +13,7 @@ function buildMetadata(sample) {
         panel.html("")
     // Use `Object.entries` to add each key and value pair to the panel
     // Hint: Inside the loop, you will need to use d3 to append new tags for each key-value in the metadata.
-        Object.entries(data).forEach(([key, value]) => {
+        Object.entries(result).forEach(([key, value]) => {
             panel.append("h6").text(`${key}: ${value}`);
         });
         
@@ -56,33 +56,42 @@ function buildCharts(sample) {
             x: otu_ids,
             y: sample_values,
             text: otu_labels,
-            mode: markers,
+            mode: "markers",
             marker: {
                 size: sample_values,
                 color: otu_ids,
                 colorscale: "Earth"
             }
         }];
+
+        var bubbleLayout = {
+            title: "Bacteria Cultures Per Sample",
+            margin: { t: 0 },
+            hovermode: "closest",
+            xaxis: { title: "OTU ID" },
+            margin: { t: 30}
+          };
         Plotly.newPlot("bubble", bubbleData, bubbleLayout)
 
 function init () {
     // Reference dropdown select element
-    var dropdown = d3.select("#selDataset");
+    var selector = d3.select("#selDataset");
     // Use the list of samples names to populate the different select options
-    d3.json("./data/samples.json").then((sampleName) => {
+    d3.json("./data/samples.json").then((data) => {
+        var sampleName = data.names;
+
         sampleName.forEach((sample) => {
             selector
                 .append("option")
                 .text(sample)
                 .property("value", sample);
-        })
-    });
+        });
 
     // Use first sample from list to build our initial plots
     var firstSample = sampleName[0];
     buildCharts(firstSample);
     buildMetadata(firstSample);
-
+    });
 }
 
 function changeOptions(newSample) {
