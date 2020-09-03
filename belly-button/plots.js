@@ -2,12 +2,12 @@ function buildMetadata(sample) {
   d3.json("samples.json").then((data) => {
     var metadata = data.metadata;
     // Filter the data for the object with the desired sample number
-    var resultArray = metadata.filter(sampleObj => sampleObj.id == sample);
+    var resultArray = metadata.filter(sampleObject => sampleObject.id == sample);
     var result = resultArray[0];
-    // Use d3 to select the panel with id of `#sample-metadata`
+    // Use d3 to select the panel with the id of `#sample-metadata`
     var PANEL = d3.select("#sample-metadata");
 
-    // Use `.html("") to clear any existing metadata
+    // Using html to clear any existing metadata
     PANEL.html("");
 
     // Use `Object.entries` to add each key and value pair to the panel
@@ -22,10 +22,10 @@ function buildMetadata(sample) {
   });
 }
 
-function buildCharts(sample) {
+function buildChart(sample) {
   d3.json("samples.json").then((data) => {
     var samples = data.samples;
-    var resultArray = samples.filter(sampleObj => sampleObj.id == sample);
+    var resultArray = samples.filter(sampleObject => sampleObject.id == sample);
     var result = resultArray[0];
 
     var otu_ids = result.otu_ids;
@@ -34,7 +34,7 @@ function buildCharts(sample) {
 
     // Build a Bubble Chart
     var bubbleLayout = {
-      title: "Bacteria Cultures Per Sample",
+      title: "Bacteria Per Sample",
       margin: { t: 0 },
       hovermode: "closest",
       xaxis: { title: "OTU ID" },
@@ -68,7 +68,7 @@ function buildCharts(sample) {
     ];
 
     var barLayout = {
-      title: "Top 10 Bacteria Cultures Found",
+      title: "Top 10 Bacteria Cultures Discovered",
       margin: { t: 30, l: 150 }
     };
 
@@ -93,14 +93,14 @@ function init() {
 
     // Use the first sample from the list to build the initial plots
     var firstSample = sampleNames[0];
-    buildCharts(firstSample);
+    buildChart(firstSample);
     buildMetadata(firstSample);
   });
 }
 
 function optionChanged(newSample) {
   // Fetch new data each time a new sample is selected
-  buildCharts(newSample);
+  buildChart(newSample);
   buildMetadata(newSample);
 }
 
