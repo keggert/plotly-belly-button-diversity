@@ -92,7 +92,7 @@ function init() {
     });
 }
 
-function optionChanged(newSample) {
+function changeOptions(newSample) {
     // Fetch new data everytime a new sample gets selected
     buildChart(newSample);
     buildMetadata(newSample);
